@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encriptador de textos</title>
+    <link rel="shortcut icon" href="./img/page-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Krona+One&family=Montserrat:ital@0;1&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body id="home">
+    <header>
+      <a href="#home">
+        <img src="./img/page-icon.svg" alt="Logo que asemeja una computadora"
+      /></a>
+      <h1>Encriptador de textos</h1>
+    </header>
+    <main>
+      <div class="container">
+        <textarea
+          name="text-submited"
+          id="text-submited"
+          class="text-submited"
+          wrap="soft"
+          placeholder="Ingresa el texto aquí"
+        ></textarea>
+        <div class="warning">
+          <img
+            src="./img/warning.svg"
+            alt="icono de advertencia"
+            class="warning-icon"
+          />
+          <p>Solo letras en minúscula y sin acentuación.</p>
+        </div>
+        <div class="buttons">
+          <button type="button">Encriptar</button>
+          <button type="button">Desencriptar</button>
+        </div>
+      </div>
+      <div class="text-area-2">
+        <textarea
+          name="text-converted"
+          id="text-converted"
+          class="text-converted"
+          wrap="soft"
+        ></textarea>
+        <div id="message" class="hidden">
+          <img src="./img/Muñeco.png" alt="Muñeco" class="hidden-2" />
+          <h2>Ningún mensaje fue encontrado</h2>
+          <p>Ingresa el texto que desees encriptar o desencriptar.</p>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <p>Made by: Andres Claro - Alura LATAM & ONE</p>
+      <p>Challenge: encriptador de texto</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
