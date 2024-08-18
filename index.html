@@ -38,8 +38,8 @@
           <p>Solo letras en minúscula y sin acentuación.</p>
         </div>
         <div class="buttons">
-          <button type="button">Encriptar</button>
-          <button type="button">Desencriptar</button>
+          <button type="button" id="encrypt">Encriptar</button>
+          <button type="button" id="decrypt">Desencriptar</button>
         </div>
       </div>
       <div class="text-area-2">
@@ -50,9 +50,18 @@
           wrap="soft"
         ></textarea>
         <div id="message" class="hidden">
-          <img src="./img/Muñeco.png" alt="Muñeco" class="hidden-2" />
-          <h2>Ningún mensaje fue encontrado</h2>
-          <p>Ingresa el texto que desees encriptar o desencriptar.</p>
+          <img
+            src="./img/Muñeco.png"
+            alt="Muñeco"
+            class="hidden-2 picture"
+            id="picture"
+          />
+          <h2></h2>
+          <p></p>
+        </div>
+        <div class="buttons">
+          <button type="button" id="clear">Limpiar</button>
+          <button type="button" id="copy">Copiar</button>
         </div>
       </div>
     </main>

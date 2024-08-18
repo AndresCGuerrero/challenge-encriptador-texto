@@ -1,79 +1,143 @@
-// Función para encriptar el texto
-function encriptarTexto(texto) {
-  // Validar el texto antes de encriptar
-  if (!validarTexto(texto)) {
-    return "Error: El texto debe contener solo letras minúsculas, sin acentos ni caracteres especiales.";
+const d = document;
+
+let textConv = d.getElementById("text-converted");
+let messageDiv = d.getElementById("message"),
+  messageH2 = d.querySelector("#message h2"),
+  messageP = d.querySelector("#message p");
+
+function initialMessage() {
+  let textSub = d.getElementById("text-submited").value;
+
+  if (textSub.trim() === "") {
+    messageDiv.classList.remove("hidden");
+    messageH2.innerText = "Ningún mensaje fue encontrado";
+    messageP.innerText =
+      "Ingresa el texto que desees encriptar o desencriptar.";
+  }
+}
+
+function verifyInfo() {
+  let textSub = d.getElementById("text-submited").value.trim();
+
+  messageH2.innerText = "";
+  messageP.innerText = "";
+
+  if (textSub === "") {
+    messageDiv.classList.remove("hidden");
+    messageH2.textContent = "Ningún mensaje fue encontrado";
+    messageP.textContent =
+      "Ingresa el texto que desees encriptar o desencriptar.";
+    return false;
   }
 
-  // Reemplazar las letras según las llaves de encriptación
-  var textoEncriptado = texto
+  let regExp = /^[a-z\s]*$/;
+  if (!regExp.test(textSub)) {
+    messageDiv.classList.remove("hidden");
+    messageP.textContent =
+      "El texto solo puede contener minúsculas, sin números ni caracteres especiales.";
+    return false;
+  }
+
+  messageDiv.classList.add("hidden");
+  return true;
+}
+
+function encryptInfo() {
+  if (!verifyInfo()) {
+    return "";
+  }
+
+  let textSub = d.getElementById("text-submited").value;
+
+  let encryptText = textSub
     .replace(/e/g, "enter")
     .replace(/i/g, "imes")
     .replace(/a/g, "ai")
     .replace(/o/g, "ober")
     .replace(/u/g, "ufat");
 
-  return textoEncriptado;
+  return encryptText;
 }
 
-// Función para desencriptar el texto
-function desencriptarTexto(texto) {
-  // Validar el texto antes de desencriptar
-  if (!validarTexto(texto)) {
-    return "Error: El texto debe contener solo letras minúsculas, sin acentos ni caracteres especiales.";
+function decryptInfo() {
+  if (!verifyInfo()) {
+    return "";
   }
 
-  // Revertir el proceso de encriptación
-  var textoDesencriptado = texto
+  let textSub = d.getElementById("text-submited").value;
+
+  let decryptText = textSub;
+
+  let text = decryptText
     .replace(/enter/g, "e")
     .replace(/imes/g, "i")
     .replace(/ai/g, "a")
     .replace(/ober/g, "o")
     .replace(/ufat/g, "u");
 
-  return textoDesencriptado;
+  return text;
 }
 
-// Función para validar el texto
-function validarTexto(texto) {
-  var regex = /^[a-z\s]*$/; // Solo letras minúsculas y espacios
-  return regex.test(texto);
+function showText(event) {
+  let userAction = event.target.id;
+
+  messageH2.textContent = "";
+  messageP.textContent = "";
+
+  let result = "";
+
+  if (userAction === "encrypt") {
+    result = encryptInfo();
+  } else if (userAction === "decrypt") {
+    result = decryptInfo();
+  }
+
+  let image = d.getElementById("picture");
+  image.classList.remove("hidden-2");
+  image.classList.add("hidden");
+  messageDiv.classList.remove("hidden");
+
+  messageH2.textContent = result;
 }
 
-// Función para manejar el clic en los botones
-function manejarClicEncriptar() {
-  var textoIngresado = document.getElementById("text-submited").value;
-  var resultado = encriptarTexto(textoIngresado);
-  mostrarResultado(resultado);
+function clearInterface() {
+  let image = d.getElementById("picture");
+
+  d.getElementById("text-submited").value = "";
+  messageH2.classList.remove("hidden");
+  messageP.classList.remove("hidden");
+  messageDiv.classList.remove("hidden");
+
+  messageH2.textContent = "";
+  messageP.textContent = "";
+  initialMessage();
+
+  console.log("boton limpiar");
 }
 
-function manejarClicDesencriptar() {
-  var textoIngresado = document.getElementById("text-submited").value;
-  var resultado = desencriptarTexto(textoIngresado);
-  mostrarResultado(resultado);
-}
+function copyText() {
+  let textoCopied = messageH2.textContent;
 
-// Función para mostrar el resultado
-function mostrarResultado(resultado) {
-  var areaTextoConvertido = document.getElementById("text-converted");
-  var mensaje = document.getElementById("message");
+  if (textoCopied) {
+    navigator.clipboard.writeText(textoCopied);
+    messageP.textContent = "Texto copiado.";
 
-  if (resultado.startsWith("Error")) {
-    // Mostrar mensaje de error
-    areaTextoConvertido.value = "";
-    mensaje.querySelector("h2").textContent = resultado;
-    mensaje.style.display = "flex";
-  } else {
-    // Mostrar el texto encriptado/desencriptado
-    areaTextoConvertido.value = resultado;
-    mensaje.style.display = "none";
+    console.log("boton copiar");
   }
 }
 
-// Asignar funciones a los botones
-document
-  .querySelector("button:nth-child(1)")
-  .addEventListener("click", manejarClicEncriptar);
-document
-  .querySelector("button:nth-child(2)")
-  .addEventListener("click", manejarClicDesencriptar);
+function buttons() {
+  let encrypt = d.getElementById("encrypt"),
+    decrypt = d.getElementById("decrypt"),
+    copy = d.getElementById("copy"),
+    clear = d.getElementById("clear");
+
+  encrypt.addEventListener("click", showText);
+  decrypt.addEventListener("click", showText);
+  copy.addEventListener("click", copyText);
+  clear.addEventListener("click", clearInterface);
+
+  initialMessage();
+}
+
+d.addEventListener("DOMContentLoaded", buttons);
