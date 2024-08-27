@@ -1,7 +1,7 @@
 const d = document;
 
-let textConv = d.getElementById("text-converted");
-let messageDiv = d.getElementById("message"),
+const textConv = d.getElementById("text-converted");
+const messageDiv = d.getElementById("message"),
   messageH2 = d.querySelector("#message h2"),
   messageP = d.querySelector("#message p");
 
@@ -102,6 +102,8 @@ function showText(event) {
 
 function clearInterface() {
   let image = d.getElementById("picture");
+  image.classList.remove("hidden-2");
+  image.classList.remove("hidden");
 
   d.getElementById("text-submited").value = "";
   messageH2.classList.remove("hidden");
@@ -111,8 +113,6 @@ function clearInterface() {
   messageH2.textContent = "";
   messageP.textContent = "";
   initialMessage();
-
-  console.log("boton limpiar");
 }
 
 function copyText() {
@@ -121,8 +121,6 @@ function copyText() {
   if (textoCopied) {
     navigator.clipboard.writeText(textoCopied);
     messageP.textContent = "Texto copiado.";
-
-    console.log("boton copiar");
   }
 }
 
